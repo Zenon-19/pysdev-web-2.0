@@ -1,0 +1,22 @@
+[
+  {
+    "id": "f5ade274-599c-447f-a40a-1b1d275a4da1",
+    "createdAt": "2026-10-12T22:15:48.718Z",
+    "status": "new",
+    "fullName": "Alex Mercer",
+    "workEmail": "alex@mercerlogistics.io",
+    "companyName": "Mercer Logistics",
+    "websiteUrl": "https://mercerlogistics.io",
+    "serviceCategory": "AI & Workflow Automation",
+    "problemToSolve": "We need to automate dispatch order routing from inbound customer emails into our internal fleet dispatch tracking system without manual data entry.",
+    "currentTools": "HubSpot, Slack, PostgreSQL",
+    "desiredOutcome": "Under 2-minute latency for automated order logging",
+    "budget": "₹75,000–₹1.5 lakh",
+    "timeline": "Within a month",
+    "engagement": "One-time project",
+    "additionalRequirements": null,
+    "consentGiven": true,
+    "consentTimestamp": "2026-10-12T22:15:48.718Z",
+    "clientIpMasked": "127.0.0.xxx"
+  }
+]
