@@ -59,7 +59,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ currentPath, onNavigate 
           aria-label="PysDev Studio logo - Return to homepage"
         >
           <img
-            src="/images/pysdev-logo-transparent.png"
+            src="/images/pysdev-logo-clean.png"
             alt="PysDev Studio logo"
             className="h-8 sm:h-9 md:h-10 w-auto max-w-[145px] sm:max-w-[170px] md:max-w-[195px] object-contain"
             width="195"
@@ -164,7 +164,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ currentPath, onNavigate 
         >
           <div className="pb-4 border-b border-[#D8D8D0]">
             <img
-              src="/images/pysdev-logo-transparent.png"
+              src="/images/pysdev-logo-clean.png"
               alt="PysDev Studio logo"
               className="h-8 w-auto max-w-[145px] object-contain"
               width="145"

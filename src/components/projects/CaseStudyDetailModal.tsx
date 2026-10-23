@@ -251,7 +251,15 @@ export const CaseStudyDetailModal: React.FC<CaseStudyDetailModalProps> = ({
                   &ldquo;{caseStudy.testimonial.quote}&rdquo;
                 </blockquote>
                 <div className="pt-2 text-xs font-mono text-[#181818]/70">
-                  — <strong className="text-[#181818] font-semibold">{caseStudy.testimonial.clientName}</strong>, {caseStudy.testimonial.role} at {caseStudy.testimonial.company}
+                  {caseStudy.testimonial.permissionConfirmed ? (
+                    <>
+                      — <strong className="text-[#181818] font-semibold">{caseStudy.testimonial.clientName}</strong>, {caseStudy.testimonial.role} at {caseStudy.testimonial.company}
+                    </>
+                  ) : (
+                    <>
+                      — <strong className="text-[#181818] font-semibold">Verified Client</strong> (Client details confidential upon request)
+                    </>
+                  )}
                 </div>
               </div>
             )}

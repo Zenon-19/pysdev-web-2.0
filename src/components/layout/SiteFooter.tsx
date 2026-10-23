@@ -75,7 +75,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ onNavigate }) => {
             aria-label="PysDev Studio logo - Return to homepage"
           >
             <img
-              src="/images/pysdev-logo-light.png"
+              src="/images/pysdev-logo-light-clean.png"
               alt="PysDev Studio logo"
               className="h-8 sm:h-9 w-auto max-w-[165px] sm:max-w-[190px] object-contain"
               width="190"

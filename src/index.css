@@ -8,6 +8,16 @@
   --color-stone: #D8D8D0;
   --color-muted-grey: #A5A59B;
   --color-signal-lime: #C6F36B;
+  --color-white: #FFFFFF;
+}
+
+:root {
+  --pysdev-ivory: #F3F2EE;
+  --pysdev-charcoal: #181818;
+  --pysdev-stone: #D8D8D0;
+  --pysdev-muted-grey: #A5A59B;
+  --pysdev-lime: #C6F36B;
+  --pysdev-white: #FFFFFF;
 }
 
 html {

@@ -15,62 +15,66 @@ interface StageDetail {
 
 const STAGES: StageDetail[] = [
   {
-    id: 'capture',
-    label: 'Capture',
+    id: 'input',
+    label: 'Input',
     sublabel: 'Inbound Webhook & Form',
     icon: Inbox,
     payload: {
-      title: 'Raw Lead Intake Triggered',
-      description: 'Incoming form submission or API webhook payload arrives via authenticated endpoint.',
+      title: 'Inbound Data Intake Triggered',
+      description: 'Incoming inquiry or API webhook payload arrives via authenticated HTTPS endpoint.',
       sampleData: {
-        source: 'Landing Page Form',
-        payload_type: 'Project Inquiry',
+        source: 'Landing Page Intake / API Webhook',
+        payload_type: 'Project Inquiry Payload',
         received_at: '14:22:01 UTC',
+        auth_status: 'Bearer Token Verified',
       },
     },
   },
   {
-    id: 'process',
-    label: 'Process',
-    sublabel: 'Data Extraction & Schema',
+    id: 'ai-processing',
+    label: 'AI Processing',
+    sublabel: 'Extraction & Classification',
     icon: Cpu,
     payload: {
-      title: 'Enrichment & Context Extraction',
-      description: 'Schema normalization, domain lookup, and intent classification executed within 120ms.',
+      title: 'AI Extraction & Intent Classification',
+      description: 'Zero-shot entity extraction, prompt-engineered schema normalization, and intent classification.',
       sampleData: {
-        entity_domain: 'agencyflow.io',
-        target_service: 'Workflow Automation',
-        urgency_score: 'High Intent',
+        intent_category: 'Workflow & AI Automation',
+        extracted_entities: 'CRM Integration, Stripe, Slack',
+        priority_rating: 'Tier 1 (High Intent)',
+        context_confidence: '0.985 (Validated)',
       },
     },
   },
   {
-    id: 'validate',
-    label: 'Validate',
+    id: 'validation',
+    label: 'Validation',
     sublabel: 'Guardrails & Business Rules',
     icon: ShieldCheck,
     payload: {
-      title: 'Verification & Quality Check',
-      description: 'Verifies email deliverability, spam score filter, and duplicate CRM record check.',
+      title: 'Deterministic Guardrails & Policy Check',
+      description: 'Verifies email deliverability, duplicate record collision, and business logic safety rules.',
       sampleData: {
-        email_status: 'Deliverable (MX Valid)',
-        anti_spam_check: 'Passed (0.00 score)',
-        duplicate_status: 'New Contact Verified',
+        email_status: 'Deliverable (MX Validated)',
+        duplicate_check: 'No Duplicate Found in CRM',
+        policy_guardrails: 'Passed (3/3 Compliance Rules)',
+        approval_state: 'Pre-Approved for Execution',
       },
     },
   },
   {
-    id: 'act',
-    label: 'Act',
-    sublabel: 'CRM, Calendar & Alerts',
+    id: 'action',
+    label: 'Action',
+    sublabel: 'CRM, Slack & Notification',
     icon: Send,
     payload: {
       title: 'Autonomous System Execution',
-      description: 'Syncs lead into CRM, dispatches notification to team Slack channel, and triggers confirmation.',
+      description: 'Syncs lead into CRM, dispatches notification to team Slack channel, and triggers confirmation sequence.',
       sampleData: {
-        hubspot_contact: 'Created (ID: #89211)',
+        crm_record: 'Created (HubSpot & Postgres)',
         slack_notification: 'Dispatched to #pipeline',
-        calendar_invite: 'Drafted for Review',
+        calendar_invite: 'Draft Prepared for Review',
+        client_receipt: 'Confirmation Email Dispatched',
       },
     },
   },
@@ -85,13 +89,16 @@ export const WorkflowIllustration: React.FC = () => {
       {/* Visual Header Bar */}
       <div className="px-5 py-3.5 bg-[#181818] text-white flex items-center justify-between border-b border-[#181818]">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#C6F36B]" />
+          <span className="w-2 h-2 rounded-full bg-[#C6F36B] animate-pulse" />
           <span className="text-xs font-mono uppercase tracking-wider text-white/90">
-            Automated Architecture Pipeline
+            Pipeline Architecture
           </span>
         </div>
-        <div className="text-[11px] font-mono text-white/50">
-          Capture → Process → Validate → Act
+        <div className="text-[11px] font-mono text-white/60 hidden sm:block">
+          Input → AI Processing → Validation → Action
+        </div>
+        <div className="text-[11px] font-mono text-[#C6F36B] sm:hidden">
+          Active: 0{activeStageIndex + 1}
         </div>
       </div>
 

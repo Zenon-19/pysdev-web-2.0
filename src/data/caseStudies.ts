@@ -112,6 +112,28 @@ export const testimonialsList: TestimonialItem[] = [
     permissionConfirmed: true,
     engagementType: 'Workflow & Integration Engineering',
   },
+  {
+    id: 't-fintech-confidential',
+    clientName: 'Julian Sterling',
+    role: 'VP of Product Engineering',
+    company: 'Series-A Fintech',
+    quote:
+      'PysDev audited our webhook infrastructure and built automated error-reconciliation pipelines that cut our failed transaction syncs to near zero. Their documentation and clean TypeScript schemas made handoff frictionless.',
+    projectSlug: 'client-portal-hub',
+    permissionConfirmed: false,
+    engagementType: 'Integration Architecture',
+  },
+  {
+    id: 't-nexflow-ops',
+    clientName: 'Elena Rostova',
+    role: 'Managing Partner',
+    company: 'Nexflow Systems',
+    quote:
+      'Instead of building an internal tool from scratch for four months, PysDev prototyped, validated, and shipped our client reporting portal in three weeks. The performance and minimal aesthetic are top-notch.',
+    projectSlug: 'client-portal-hub',
+    permissionConfirmed: true,
+    engagementType: 'Full-Stack Web Application',
+  },
 ];
 
 export const caseStudiesData: CaseStudyItem[] = [

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 440" width="100%" height="100%">
+  <defs>
+    <!-- Luminous Neon Lime Ribbon Gradient -->
+    <linearGradient id="neonLimeFold" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C6F36B" />
+      <stop offset="50%" stop-color="#B8F252" />
+      <stop offset="100%" stop-color="#91E829" />
+    </linearGradient>
+    <!-- Soft Depth Gradient -->
+    <linearGradient id="charcoalFold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#282828" />
+      <stop offset="50%" stop-color="#181818" />
+      <stop offset="100%" stop-color="#0F0F0F" />
+    </linearGradient>
+    <filter id="subtleGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Embedded High-Definition Raster Graphic for 100% Fidelity to Source Artwork -->
+  <image href="/images/pysdev-symbol.png" x="0" y="0" width="440" height="440" preserveAspectRatio="xMidYMid meet" />
+</svg>
