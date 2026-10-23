@@ -65,10 +65,25 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ onNavigate }) => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 md:grid-cols-12 gap-12 text-sm">
         {/* Brand Column */}
         <div className="md:col-span-5 space-y-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 bg-[#C6F36B] inline-block rounded-xs" />
-            <span className="text-lg font-bold tracking-tight text-white">PysDev Studio</span>
-          </div>
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('/');
+            }}
+            className="inline-block hover:opacity-85 transition-opacity py-1 focus-visible:outline-2 focus-visible:outline-white rounded-sm"
+            aria-label="PysDev Studio logo - Return to homepage"
+          >
+            <img
+              src="/images/pysdev-logo-light.png"
+              alt="PysDev Studio logo"
+              className="h-8 sm:h-9 w-auto max-w-[165px] sm:max-w-[190px] object-contain"
+              width="190"
+              height="57"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
           <p className="text-white/60 leading-relaxed max-w-sm">
             A software engineering and AI automation studio helping startups and growing businesses eliminate repetitive work, connect their tools, and build useful digital products.
           </p>

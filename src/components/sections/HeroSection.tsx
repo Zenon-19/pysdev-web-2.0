@@ -39,7 +39,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               transition={{ ...transitionSettings, delay: 0.1 }}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#181818]/5 border border-[#181818]/10 text-xs font-mono text-[#181818]"
             >
-              <span className="w-2 h-2 rounded-full bg-[#C6F36B] border border-[#181818]" />
+              <img src="/images/pysdev-symbol.png" alt="" className="w-3.5 h-3.5 object-contain" />
               <span>PysDev Engineering &amp; AI Automation</span>
             </motion.div>
 

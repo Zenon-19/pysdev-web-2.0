@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, X, CheckCircle, ExternalLink, Filter } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, CheckCircle, ExternalLink, Filter } from 'lucide-react';
 import { projectsData, ProjectItem, ProjectCategory } from '../data/projects';
-import { RoutePath } from '../lib/router';
+import { caseStudiesData, CaseStudyItem } from '../data/caseStudies';
+import { ClientShowcaseLogos } from '../components/sections/ClientShowcaseLogos';
+import { TestimonialsGrid } from '../components/sections/TestimonialsGrid';
+import { CaseStudyDetailModal } from '../components/projects/CaseStudyDetailModal';
+import { RoutePath } from '../../src/lib/router';
 import { trackEvent } from '../lib/analytics';
 
 interface WorkPageProps {
+  queryParams?: Record<string, string>;
   onNavigate: (path: RoutePath, queryParams?: Record<string, string>) => void;
 }
 
 type FilterOption = 'All' | ProjectCategory;
 
-export const WorkPage: React.FC<WorkPageProps> = ({ onNavigate }) => {
+export const WorkPage: React.FC<WorkPageProps> = ({ queryParams = {}, onNavigate }) => {
   const [activeFilter, setActiveFilter] = useState<FilterOption>('All');
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudyItem | null>(null);
 
   useEffect(() => {
     document.title = 'Selected Work & Projects — PysDev Studio';
     window.scrollTo(0, 0);
-  }, []);
+
+    // Deep link support via ?project=slug
+    if (queryParams.project) {
+      const found = caseStudiesData.find((c) => c.slug === queryParams.project);
+      if (found) {
+        setSelectedCaseStudy(found);
+      }
+    }
+  }, [queryParams.project]);
 
   const filteredProjects = projectsData.filter((item) => {
     if (activeFilter === 'All') return true;
@@ -27,6 +40,14 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onNavigate }) => {
   const handleFilterChange = (filter: FilterOption) => {
     setActiveFilter(filter);
     trackEvent('project_card_clicked', { filter });
+  };
+
+  const handleOpenCaseStudyBySlug = (slug: string) => {
+    const found = caseStudiesData.find((item) => item.slug === slug);
+    if (found) {
+      trackEvent('project_card_clicked', { projectSlug: slug, source: 'work_page' });
+      setSelectedCaseStudy(found);
+    }
   };
 
   return (
@@ -45,7 +66,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        {/* Functional Category Filters (Interactive buttons, accessible by keyboard and touch) */}
+        {/* Functional Category Filters */}
         <div className="mt-10 flex items-center gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Project Category Filters">
           {(['All', 'Automation', 'AI', 'Software'] as FilterOption[]).map((filter) => {
             const isActive = activeFilter === filter;
@@ -69,15 +90,12 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onNavigate }) => {
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project: ProjectItem) => (
             <div
               key={project.id}
-              onClick={() => {
-                trackEvent('project_card_clicked', { projectSlug: project.slug });
-                setSelectedProject(project);
-              }}
+              onClick={() => handleOpenCaseStudyBySlug(project.slug)}
               className="bg-white rounded-2xl border border-[#D8D8D0] overflow-hidden flex flex-col justify-between hover:border-[#181818]/40 hover:shadow-sm transition-all duration-200 group cursor-pointer"
             >
               <div>
@@ -131,7 +149,7 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onNavigate }) => {
 
               {/* Action Bar */}
               <div className="px-7 pb-7 pt-2 flex items-center justify-between text-xs font-semibold text-[#181818]">
-                <span>View Full Architecture &amp; Solution</span>
+                <span>View Full Case Study &amp; Architecture</span>
                 <div className="w-8 h-8 rounded-full bg-[#F3F2EE] group-hover:bg-[#C6F36B] flex items-center justify-center transition-colors">
                   <ArrowUpRight className="w-4 h-4" />
                 </div>
@@ -141,118 +159,29 @@ export const WorkPage: React.FC<WorkPageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Accessible Detail Modal */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="work-modal-title"
-        >
-          <div className="bg-white text-[#181818] border border-[#D8D8D0] rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-4 right-4 z-10 p-2 text-[#181818]/80 hover:text-[#181818] bg-white/80 rounded-full border border-[#D8D8D0] cursor-pointer"
-              aria-label="Close Project Modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-black">
-              <img
-                src={selectedProject.imageSrc}
-                alt={selectedProject.imageAlt}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#C6F36B] text-[#181818] font-semibold mb-2 inline-block">
-                  {selectedProject.statusLabel}
-                </span>
-                <h3 id="work-modal-title" className="text-2xl sm:text-3xl font-bold">
-                  {selectedProject.title}
-                </h3>
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-8 space-y-6">
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#A5A59B] mb-2">
-                  The Problem &amp; Operational Context
-                </h4>
-                <p className="text-sm sm:text-base text-[#181818]/85 leading-relaxed">
-                  {selectedProject.problem}
-                </p>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#181818] mb-2">
-                  The Engineered Solution
-                </h4>
-                <p className="text-sm sm:text-base text-[#181818]/85 leading-relaxed">
-                  {selectedProject.solution}
-                </p>
-              </div>
-
-              {selectedProject.interactiveDemoNotes && (
-                <div className="p-4 rounded-xl bg-[#F3F2EE] border border-[#D8D8D0] text-xs text-[#181818]/80">
-                  <span className="font-semibold text-[#181818]">Technical Note: </span>
-                  {selectedProject.interactiveDemoNotes}
-                </div>
-              )}
-
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#A5A59B] mb-3">
-                  Verifiable Deliverables &amp; Outcomes
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {selectedProject.outcomes.map((outcome, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-[#181818]/90">
-                      <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{outcome}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#A5A59B] mb-2">
-                  Technology Stack
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.techStack.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2.5 py-1 rounded-md bg-[#F3F2EE] border border-[#D8D8D0] text-xs font-mono text-[#181818]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-6 border-t border-[#D8D8D0] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-                <button
-                  onClick={() => {
-                    setSelectedProject(null);
-                    onNavigate('/contact', { service: selectedProject.categoryLabel });
-                  }}
-                  className="px-6 py-3 bg-[#C6F36B] text-[#181818] rounded-xl font-semibold text-sm hover:bg-[#b8ee52] transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>Scope a Project Like This</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="text-xs text-[#181818]/60 hover:text-[#181818] transition-colors text-center py-2 cursor-pointer"
-                >
-                  Close Modal
-                </button>
-              </div>
-            </div>
-          </div>
+      {/* Collaborators & Verified Client Feedback Section */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-16 pt-16 border-t border-[#181818]/10">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#181818] mb-2">
+            Client Collaborations &amp; Work
+          </h2>
+          <p className="text-sm sm:text-base text-[#181818]/70 max-w-2xl mb-8">
+            Explore verified organizations, project scopes, and direct testimonials from partners we have collaborated with.
+          </p>
+          <ClientShowcaseLogos onSelectProject={handleOpenCaseStudyBySlug} />
         </div>
-      )}
+
+        <div>
+          <TestimonialsGrid onSelectProject={handleOpenCaseStudyBySlug} />
+        </div>
+      </div>
+
+      {/* 14-Point Case Study Detail Modal */}
+      <CaseStudyDetailModal
+        caseStudy={selectedCaseStudy}
+        onClose={() => setSelectedCaseStudy(null)}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 };

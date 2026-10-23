@@ -22,7 +22,7 @@ export default function App() {
       <main className="flex-1 w-full" id="main-content">
         {path === '/' && <HomePage onNavigate={navigate} />}
         {path === '/services' && <ServicesPage onNavigate={navigate} />}
-        {path === '/work' && <WorkPage onNavigate={navigate} />}
+        {path === '/work' && <WorkPage queryParams={queryParams} onNavigate={navigate} />}
         {path === '/process' && <ProcessPage onNavigate={navigate} />}
         {path === '/contact' && <ContactPage queryParams={queryParams} onNavigate={navigate} />}
         {path === '/thank-you' && <ThankYouPage queryParams={queryParams} onNavigate={navigate} />}

@@ -3,6 +3,7 @@ import { HeroSection } from '../components/sections/HeroSection';
 import { StudioIntro } from '../components/sections/StudioIntro';
 import { ServicesOverview } from '../components/sections/ServicesOverview';
 import { SelectedWorkSection } from '../components/sections/SelectedWorkSection';
+import { ClientsCaseStudiesPanel } from '../components/sections/ClientsCaseStudiesPanel';
 import { ProcessTimeline } from '../components/sections/ProcessTimeline';
 import { WhyPysDev } from '../components/sections/WhyPysDev';
 import { RoutePath } from '../lib/router';
@@ -22,6 +23,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       <StudioIntro />
       <ServicesOverview onNavigate={onNavigate} />
       <SelectedWorkSection onNavigate={onNavigate} />
+      <ClientsCaseStudiesPanel onNavigate={onNavigate} />
       <ProcessTimeline onNavigate={onNavigate} />
       <WhyPysDev />
     </div>

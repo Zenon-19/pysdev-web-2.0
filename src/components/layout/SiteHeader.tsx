@@ -48,18 +48,25 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ currentPath, onNavigate 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#F3F2EE]/90 backdrop-blur-md border-b border-[#181818]/10 transition-colors">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Wordmark (Single text element) */}
+        {/* Zone 1: Brand Logo (Preserving original aspect ratio & high-density crispness) */}
         <a
           href="/"
           onClick={(e) => {
             e.preventDefault();
             handleNavClick('/');
           }}
-          className="text-xl font-bold tracking-tight text-[#181818] whitespace-nowrap shrink-0 hover:opacity-80 transition-opacity flex items-center gap-2"
-          aria-label="PysDev Studio Home"
+          className="flex items-center shrink-0 hover:opacity-85 transition-opacity focus-visible:outline-2 focus-visible:outline-[#181818] rounded-sm py-1"
+          aria-label="PysDev Studio logo - Return to homepage"
         >
-          <span className="w-2.5 h-2.5 bg-[#C6F36B] border border-[#181818] inline-block rounded-xs" />
-          <span>PysDev Studio</span>
+          <img
+            src="/images/pysdev-logo-transparent.png"
+            alt="PysDev Studio logo"
+            className="h-8 sm:h-9 md:h-10 w-auto max-w-[145px] sm:max-w-[170px] md:max-w-[195px] object-contain"
+            width="195"
+            height="58"
+            loading="eager"
+            decoding="async"
+          />
         </a>
 
         {/* Zone 2: Navigation Links (Single line text links) */}
@@ -150,12 +157,22 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ currentPath, onNavigate 
       {/* Accessible Mobile Navigation Drawer / Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 top-20 z-50 bg-[#F3F2EE] flex flex-col justify-between px-8 py-10 md:hidden border-t border-[#181818]/10 animate-in fade-in duration-200"
+          className="fixed inset-0 top-20 z-50 bg-[#F3F2EE] flex flex-col justify-between px-8 py-8 md:hidden border-t border-[#181818]/10 animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation Menu"
         >
-          <nav className="flex flex-col space-y-6 text-2xl font-semibold tracking-tight text-[#181818]">
+          <div className="pb-4 border-b border-[#D8D8D0]">
+            <img
+              src="/images/pysdev-logo-transparent.png"
+              alt="PysDev Studio logo"
+              className="h-8 w-auto max-w-[145px] object-contain"
+              width="145"
+              height="43"
+            />
+          </div>
+
+          <nav className="flex flex-col space-y-6 text-2xl font-semibold tracking-tight text-[#181818] pt-2">
             <a
               href="/"
               onClick={(e) => {
