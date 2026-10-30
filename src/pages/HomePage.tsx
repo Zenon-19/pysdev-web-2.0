@@ -6,6 +6,7 @@ import { SelectedWorkSection } from '../components/sections/SelectedWorkSection'
 import { ClientsCaseStudiesPanel } from '../components/sections/ClientsCaseStudiesPanel';
 import { ProcessTimeline } from '../components/sections/ProcessTimeline';
 import { WhyPysDev } from '../components/sections/WhyPysDev';
+import { FAQSection } from '../components/sections/FAQSection';
 import { RoutePath } from '../lib/router';
 
 interface HomePageProps {
@@ -26,6 +27,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       <ClientsCaseStudiesPanel onNavigate={onNavigate} />
       <ProcessTimeline onNavigate={onNavigate} />
       <WhyPysDev />
+      <FAQSection onNavigate={onNavigate} />
     </div>
   );
 };
+

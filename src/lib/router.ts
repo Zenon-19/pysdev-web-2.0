@@ -45,13 +45,16 @@ export function useRouter() {
       url = `${path}?${search}`;
     }
 
+    const isNewPath = window.location.pathname !== path;
     if (window.location.pathname + window.location.search !== url) {
       window.history.pushState({}, '', url);
       setRoute({
         path,
         queryParams: queryParams || {},
       });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!isNewPath) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   }, []);
 
